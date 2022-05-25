@@ -7,7 +7,8 @@ struct Parede{
 	float largura;
 	int qtdjanelas;
 	int qtdportas;
-	int totalTintas;
+	
+	
 }parede;
 	
 struct Comodo{
@@ -19,6 +20,22 @@ struct Comodo{
 void clearr(){
 	system("@cls || clear");
 }
+
+int calcTinta (struct Comodo comodo){
+	float altura = comodo.paredes[0].altura + comodo.paredes[1].altura + comodo.paredes[2].altura + comodo.paredes[3].altura;
+	float largura = comodo.paredes[0].largura + comodo.paredes[1].largura + comodo.paredes[2].largura + comodo.paredes[3].largura;
+	float qtdportas = (comodo.paredes[0].qtdportas * 2.4) + (comodo.paredes[1].qtdportas * 2.4) + (comodo.paredes[2].qtdportas * 2.4) + (comodo.paredes[3].qtdportas * 2.4);
+	float qtdjanelas = (comodo.paredes[0].qtdjanelas * 1.52) + (comodo.paredes[1].qtdjanelas * 1.52) + (comodo.paredes[2].qtdjanelas * 1.52) + (comodo.paredes[3].qtdjanelas * 1.52);
+	float area = altura * largura;
+	area = area - (qtdportas + qtdjanelas);
+	
+	
+	
+	printf("Qtd tinta: %.2f", area / 5);
+	
+	return (area / 5);
+}
+
 
 
 bool calculaAlturaMinima(float alturaParede, int qtdPortas) {
@@ -46,6 +63,7 @@ bool proporcaoArea(struct Parede parede){
 	float areaParede = parede.altura * parede.largura;
 	float areaPortas = 1.52 * parede.qtdportas;
 	float areaJanelas = 2.40 * parede.qtdjanelas;
+
 	
 	 if ((areaPortas + areaJanelas) > (areaParede/2)){
 	 	return false;
@@ -54,11 +72,6 @@ bool proporcaoArea(struct Parede parede){
 		return true;
 }
 
-void totalTintas(struct Comodo comodo){
-	while(totalTintas >=1 * comodo.paredes.altura * comodo.paredes.largura <= 20 ){
-		comodo.paredes[0].altura * comodo.paredes[0].largura
-	}
-}
 
 
 
@@ -82,8 +95,9 @@ int main (){
 		
 		if (calculaAreaMinima(comodo.paredes[i].altura, comodo.paredes[i].largura)) {
 			if (proporcaoArea(comodo.paredes[i]) == true)
-				if(calculaAlturaMinima(comodo.paredes[i].altura, comodo.paredes[i].qtdportas) == true)
+				if(calculaAlturaMinima(comodo.paredes[i].altura, comodo.paredes[i].qtdportas) == true) {
 					i++;
+				}
 				else {
 //					clearr();
 					
@@ -105,5 +119,7 @@ int main (){
 		}
 		
 	}
+	
+	calcTinta(comodo);
 	
 }
